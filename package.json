@@ -1,0 +1,14 @@
+{
+  "name": "school-project",
+  "version": "0.0.1",
+  "description": "a cellular automata app that generates music",
+  "dependencies": {
+    "express": "^4.10.2"
+  },
+
+  "scripts": {
+    "test": "lab",
+    "lint" : "jshint **.js",
+    "s": "npm run lint && node app.js"
+  }
+}

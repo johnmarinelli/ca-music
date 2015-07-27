@@ -1,0 +1,60 @@
+<!doctype HTML>
+<html>
+<head>
+  <link href="css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <canvas id="canvas" width="1000" height="1000">
+  </canvas>
+</body>
+
+<script src="js/Cell.js"></script>
+<script src="js/Graph.js"></script>
+<script src="js/HashTable.js"></script>
+<script src="js/World.js"></script>
+<script>
+var rows = 100,
+    cols = 100,
+    canvasWidth = 1000,
+    canvasHeight = 1000,
+    graph = new Graph(rows, cols, canvasWidth, canvasHeight),
+    world = new World(graph);
+
+(function(world) {
+  var canvas = document.getElementById('canvas');
+    context = canvas.getContext('2d');
+
+  world.addCell(50, 50, true);
+  world.addCell(50, 49, true);
+  world.addCell(50, 51, true);
+  world.addCell(49, 50, true);
+  world.addCell(51, 49, true);
+
+/*    colInc = canvasWidth / cols,
+    rowInc = canvasHeight / rows;
+  
+  var drawGrid = function() {
+    context.beginPath();
+    context.strokeStyle = '#000';
+
+    for (var x = 0; x < canvasWidth; x += colInc) {
+      context.moveTo(x, 0);
+      context.lineTo(x, canvasHeight);
+    }
+
+    for (var y = 0; y < canvasHeight; y += rowInc) {
+      context.moveTo(0, y);
+      context.lineTo(canvasWidth, y);
+    }
+
+    context.stroke();
+  };
+
+  drawGrid();
+*/
+  world.draw(context);
+  setInterval(world.update, 1000);
+}(world))
+</script>
+</html>
