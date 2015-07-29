@@ -12,13 +12,13 @@
 <script src="js/Cell.js"></script>
 <script src="js/HashTable.js"></script>
 <script src="js/Graph.js"></script>
-<script src="js/World.js"></script>
+<script src="js/1dWorld.js"></script>
 <script>
-var rows = 100,
+var rows = 24,
     cols = 100,
     canvasWidth = 1000,
-    canvasHeight = 1000,
-    graph = new Graph(rows, cols, canvasWidth, canvasHeight),
+    canvasHeight = 240,
+    graph = new Graph(cols, rows, canvasWidth, canvasHeight),
     world = new World(graph);
 
 (function(world) {
@@ -26,6 +26,15 @@ var rows = 100,
     rowInc = Math.round(canvasHeight / rows),
     canvas = document.getElementById('canvas'),
     context = canvas.getContext('2d');
+
+  var seedGen = [];
+  for (var i = 0; i < canvasWidth; i += colInc) {
+    seedGen.push(new Cell(i, 0, false));
+  }
+  seedGen[5].mAlive = true;
+
+  world.seed(seedGen);
+
   
   var drawGrid = function() {
     context.beginPath();
@@ -44,18 +53,12 @@ var rows = 100,
     context.stroke();
   };
 
-  world.addCell(50, 50, true);
-  world.addCell(50, 49, true);
-  world.addCell(50, 51, true);
-  world.addCell(49, 50, true);
-  world.addCell(51, 49, true);
-
   function eventLoop() {
     world.draw(context);
     drawGrid();
     world.update();
   };
-  setInterval(eventLoop, 1000);
+  setInterval(eventLoop, 5000);
 }(world))
 </script>
 </html>
