@@ -94,7 +94,6 @@ World.prototype.getCell = function(x, y) {
 World.prototype.reviveCell = function(x, y) {
   var cell = this.mDead.get(x, y);
   if (!cell) {
-    console.log('No cell at (' + x + ', ' + y + ')');
     return false;
   }
   this.mCells[y][x].mAlive = true;
@@ -106,7 +105,6 @@ World.prototype.reviveCell = function(x, y) {
 World.prototype.killCell = function(x, y) {
   var cell = this.mLiving.get(x, y);
   if (!cell) {
-    console.log('No cell at (' + x + ', ' + y + ')');
     return false;
   }
   this.mCells[y][x].mAlive = false;
@@ -117,7 +115,6 @@ World.prototype.killCell = function(x, y) {
 // Adds cell to the 'flipping' stage, in between discrete timesteps
 World.prototype.addCellToFlip = function(x, y) {
   if (!this.mCellsToFlip.hasElement(x, y)) {
-  console.log(this.getCell(x,y));
     this.mCellsToFlip.insert(this.getCell(x,y));
   }
 };
@@ -147,7 +144,6 @@ World.prototype.update = function() {
     // and we want to overwrite the new state,
     // we have to ask world for the cell again
     var cell = world.getCell(x, y);
-    console.log('FLIPPING ' + cell.mAlive);
     cell.mAlive ? world.killCell(x, y) : world.reviveCell(x, y);
     cell.protect = true;
   });
