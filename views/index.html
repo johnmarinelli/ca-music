@@ -1,12 +1,30 @@
 <!doctype HTML>
 <html>
 <head>
+  <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="css/style.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
-  <canvas id="canvas" width="1000" height="240">
-  </canvas>
+  <div class="container">
+    <h1>Musical Automata</h1>
+    <p>A cellular-automata sequencer.</p>
+    <div class="canvas-container">
+      <canvas id="canvas" width="1000" height="240">
+      </canvas>
+    </div>
+
+    <div class="row">
+      <div class="rules-container">
+        <p>Placeholder</p>
+      </div>
+      <div class="controls">
+        <button>Start</button>
+        <button>Save</button>
+        <label for="tempo">Tempo: <input type="number" min="60" max="120" name="tempo"></input></label>
+      </div>
+    </div>
+  </div>
 </body>
 
 <script src="js/Cell.js"></script>
@@ -27,17 +45,19 @@ var rows = 24,
     rowInc = Math.round(canvasHeight / rows),
     context = canvas.getContext('2d');
 
-  var seedGen = [];
-  for (var i = 0; i < canvasHeight; i += rowInc) 
-    seedGen.push(new Cell(0, i, false));
+  (function seedWorld() {
+    var seedGen = [];
+    for (var i = 0; i < canvasHeight; i += rowInc) 
+      seedGen.push(new Cell(0, i, false));
 
-  seedGen[5].mAlive = true;
+    seedGen[5].mAlive = true;
 
-  world.seed(seedGen);
+    world.seed(seedGen);
+  }());
   
   var drawGrid = function() {
     context.beginPath();
-    context.strokeStyle = '#000';
+    context.strokeStyle = '#fff';
 
     for (var x = 0; x < canvasWidth; x += colInc) {
       context.moveTo(x, 0);

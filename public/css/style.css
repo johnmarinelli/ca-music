@@ -1,1 +1,28 @@
+body {
+  background-color: black;
+  color: white;
+}
 
+button, input {
+  color: black;
+}
+
+canvas {
+  border: thin white solid;
+}
+
+.canvas-container {
+  text-align: center;
+}
+
+.controls, .rules-container {
+  width: 50%;
+}
+
+.controls {
+  float: right;
+}
+
+.rules-container {
+  float: left;
+}
