@@ -5,7 +5,7 @@
 </head>
 
 <body>
-  <canvas id="canvas" width="1000" height="1000">
+  <canvas id="canvas" width="1000" height="240">
   </canvas>
 </body>
 
@@ -16,29 +16,28 @@
 <script>
 var rows = 24,
     cols = 100,
-    canvasWidth = 1000,
-    canvasHeight = 240,
+    canvas = document.getElementById('canvas'),
+    canvasWidth = canvas.width,
+    canvasHeight = canvas.height,
     graph = new Graph(cols, rows, canvasWidth, canvasHeight),
     world = new World(graph);
 
 (function(world) {
   var colInc = Math.round(canvasWidth / cols),
     rowInc = Math.round(canvasHeight / rows),
-    canvas = document.getElementById('canvas'),
     context = canvas.getContext('2d');
 
   var seedGen = [];
-  for (var i = 0; i < canvasWidth; i += colInc) {
-    seedGen.push(new Cell(i, 0, false));
-  }
+  for (var i = 0; i < canvasHeight; i += rowInc) 
+    seedGen.push(new Cell(0, i, false));
+
   seedGen[5].mAlive = true;
 
   world.seed(seedGen);
-
   
   var drawGrid = function() {
     context.beginPath();
-    context.strokeStyle = '#fff';
+    context.strokeStyle = '#000';
 
     for (var x = 0; x < canvasWidth; x += colInc) {
       context.moveTo(x, 0);
@@ -58,7 +57,7 @@ var rows = 24,
     drawGrid();
     world.update();
   };
-  setInterval(eventLoop, 5000);
+  setInterval(eventLoop, 2000);
 }(world))
 </script>
 </html>

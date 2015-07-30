@@ -19,10 +19,7 @@ World.prototype.draw = function(context) {
       graphColumnWidth = world.mGraph.mColumnWidth,
       graphRowHeight = world.mGraph.mRowHeight;
   
-  function paint(x_, y_) {
-    // convert cell coordinates to screen coordinates
-    var x = x_ * graphColumnWidth,
-        y = y_ * graphRowHeight;
+  function paint(x, y) {
     context.fillRect(x, y, world.mCellWidth, world.mCellHeight);
   }
 
@@ -46,12 +43,14 @@ World.prototype.update = function() {
   function getNeighborhood(idx, lastGen) {
     var neighbors = [];
     for (var i = -1; i < 2; ++i) neighbors.push(lastGen[idx+i]);
-    return neighbors;
+    return neighbors.map(function (i) {
+      return undefined === i ? new Cell(-1, -1, false) : i;
+    });
   }
 
-  // 010. straight line down.
+  // 100 
   function applyRule(idx, lastNeighborhood) {
-    if (lastNeighborhood[1].mAlive) {
+    if (lastNeighborhood[0].mAlive) {
       newGeneration[idx].mAlive = true;
     }
     else {
@@ -63,7 +62,8 @@ World.prototype.update = function() {
     var cell = lastGeneration[i],
       neighborhood = getNeighborhood(i, lastGeneration);
 
-    newGeneration[i] = new Cell(i * this.mGraph.mColumnWidth, cells.length - 1 * this.mGraph.mRowHeight, false);
+    // NOTE: the x axis is time instead of traditional y axis
+    newGeneration[i] = new Cell((cells.length - 1) * this.mGraph.mColumnWidth, i * this.mGraph.mRowHeight, false);
     applyRule(i, neighborhood);
   }
 
