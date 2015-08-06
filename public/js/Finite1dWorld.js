@@ -1,12 +1,10 @@
 // 1d world that will only have n generations
 function Finite1dWorld(graph) {
-  var self = this,
-    mNumGenerations = 0,
+  var mNumGenerations = 0,
     mMaxGenerations = 1;
-  World.call(self, graph);
+  World.call(this, graph);
 
-  var baseUpdate = self.update;
-  self.update = function() {
+  this.update = function() {
     if (mNumGenerations++ < mMaxGenerations) {
       World.prototype.update.call(this); 
     }

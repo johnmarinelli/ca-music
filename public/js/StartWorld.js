@@ -17,6 +17,10 @@ var startWorld = function(world, updateMs, canvasDims, context) {
     world.seed(seedGen);
   })();
   
+  var clearCanvas = function(ctx) {
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight)
+  };
+
   var drawGrid = function(ctx) {
     ctx.beginPath();
     ctx.strokeStyle = '#fff';
@@ -32,10 +36,6 @@ var startWorld = function(world, updateMs, canvasDims, context) {
     }
 
     ctx.stroke();
-  };
-
-  var clearCanvas = function(ctx) {
-    ctx.fillRect(0, 0, canvasWidth, canvasHeight)
   };
 
   function eventLoop() {

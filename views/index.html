@@ -10,7 +10,7 @@
     <h1>Musical Automata</h1>
     <p>A cellular-automata sequencer.</p>
     <div class="canvas-container">
-      <canvas id="canvas" width="1000" height="240">
+      <canvas id="canvas" width="1000" height="280">
       </canvas>
     </div>
 
@@ -28,14 +28,21 @@
   </div>
 </body>
 
+<script src="js/wad/src/wad.js"></script>
+<script>
+"use strict";
+</script>
+
 <script src="js/Constants.js"></script>
 <script src="js/Cell.js"></script>
 <script src="js/HashTable.js"></script>
 <script src="js/Graph.js"></script>
 <script src="js/1dWorld.js"></script>
 <script src="js/Finite1dWorld.js"></script>
+<script src="js/MusicalWorld.js"></script>
 <script src="js/StartWorld.js"></script>
 <script src="js/InitButtons.js"></script>
+<script src="js/Piano.js"></script>
 <script>
 function getElementByName(name) {
   return document.getElementsByName(name)[0];
@@ -50,7 +57,7 @@ var rows = Constants.CANVAS_ROWS,
     canvasWidth = canvas.width,
     canvasHeight = canvas.height,
     graph = new Graph(cols, rows, canvasWidth, canvasHeight);
-    world = new Finite1dWorld(graph);
+    world = new MusicalWorld(graph, piano);
 
 var start = document.getElementById('start'),
   save = document.getElementById('save'),
@@ -62,13 +69,24 @@ var start = document.getElementById('start'),
       numGenerations = Math.round(lengthMs / tempo);
 
     world.setMaxGenerations(numGenerations);
-    startWorld(world, updateMs, { width: canvasWidth, height: canvasHeight, rows: rows, cols: cols }, context);
+    startWorld(world, 
+      updateMs, 
+      { 
+        width: canvasWidth, 
+        height: canvasHeight, 
+        rows: rows, 
+        cols: cols 
+      }, 
+      context
+    );
   },
   saveButtonOnClick = function() {
   };
 
 initStartButton(start, startButtonOnClick);
 initSaveButton(save, saveButtonOnClick);
+
+
 })()
 </script>
 </html>

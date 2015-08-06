@@ -48,9 +48,12 @@ World.prototype.update = function() {
     });
   }
 
-  // 100 
+  // 100, 001, 101
   function applyRule(idx, lastNeighborhood) {
-    if (lastNeighborhood[0].mAlive) {
+    if (lastNeighborhood[0].mAlive || lastNeighborhood[2].mAlive) {
+      newGeneration[idx].mAlive = true;
+    }
+    else if (lastNeighborhood[0].mAlive && lastNeighborhood[2].mAlive) {
       newGeneration[idx].mAlive = true;
     }
     else {
