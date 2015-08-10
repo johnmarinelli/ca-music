@@ -1,7 +1,7 @@
 // 1d world...WITH MUSIC
-function MusicalWorld(graph, synth) {
+function MusicalWorld(graph, ruleset, synth) {
   var mSynth = synth;
-  Finite1dWorld.call(this, graph);
+  Finite1dWorld.call(this, graph, ruleset);
 
   // Cell Y coord -> pitch
   // Reverse because the cell coordinates go from top to bottom.
@@ -14,6 +14,11 @@ function MusicalWorld(graph, synth) {
                               });
 
   this.update = function() {
+    console.log(Finite1dWorld.prototype.getNumGenerations.call(this));
+
+    if (Finite1dWorld.prototype.getNumGenerations.call(this) > Finite1dWorld.prototype.getMaxGenerations.call(this)) return;
+
+    Finite1dWorld.prototype.incrementNumGenerations.call(this);
     Finite1dWorld.prototype.update.call(this);
     var lastGeneration = this.mCells[this.mCells.length - 1];
     
@@ -21,7 +26,6 @@ function MusicalWorld(graph, synth) {
       var pitch = null;
       if (e.mAlive) {
         pitch = mCoordinatePitchMap[idx]; 
-        console.log(pitch);
       }
       return pitch;
     });

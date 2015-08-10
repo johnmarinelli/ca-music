@@ -1,4 +1,4 @@
-function World(graph) {
+function World(graph, ruleset) {
   this.mGraph = graph;
 
   this.mCurrentGeneration = 0;
@@ -8,6 +8,8 @@ function World(graph) {
 
   // array of arrays to store previously calculated data.
   this.mCells = [];
+
+  this.mRuleset = ruleset;
 }
 
 World.prototype.seed = function(cells) {
@@ -36,6 +38,7 @@ World.prototype.draw = function(context) {
 World.prototype.update = function() {
   var newGeneration = [],
     cells = this.mCells,
+    ruleset = this.mRuleset,
     lastGeneration = cells[cells.length - 1],
     rowLength = lastGeneration.length,
     i = 0;
@@ -48,17 +51,8 @@ World.prototype.update = function() {
     });
   }
 
-  // 100, 001, 101
   function applyRule(idx, lastNeighborhood) {
-    if (lastNeighborhood[0].mAlive || lastNeighborhood[2].mAlive) {
-      newGeneration[idx].mAlive = true;
-    }
-    else if (lastNeighborhood[0].mAlive && lastNeighborhood[2].mAlive) {
-      newGeneration[idx].mAlive = true;
-    }
-    else {
-      newGeneration[idx].mAlive = false;
-    }
+    newGeneration[idx].mAlive = ruleset.applyRule(lastNeighborhood);
   }
 
   for ( ; i < rowLength; ++i) {
@@ -71,4 +65,9 @@ World.prototype.update = function() {
   }
 
   this.mCells.push(newGeneration);
+  if (this.mCells.length > this.mGraph.Cols) this.mCells.shift();
 };
+
+World.prototype.setRuleset = function(ruleset) {
+  this.mRuleset = ruleset; 
+}

@@ -26,3 +26,56 @@ canvas {
 .rules-container {
   float: left;
 }
+
+.table {
+  display: table;
+}
+
+.table .table-row {
+  display: table-row;
+}
+
+.table .table-row .table-cell {
+  display: table-cell;
+}
+
+.cell {
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+}
+
+.alive-cell {
+  background-color: white; 
+}
+
+.dead-cell {
+  background-color: black;
+  border: solid thin white;
+}
+
+.invisible-cell {
+  background-color: transparent;
+}
+
+.rulesets {
+  text-align: center;
+}
+
+.rule {
+  border: solid thin white;
+  padding: 5px;
+  display: inline-block;
+} 
+
+.rule-90:hover, .rule-30:hover, .rule-150:hover {
+  background-color: gray; 
+}
+
+.active {
+  background-color: gray; 
+}
+
+.italic {
+  font-style: italic;
+}

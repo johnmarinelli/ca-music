@@ -12,7 +12,11 @@ var startWorld = function(world, updateMs, canvasDims, context) {
     for (var i = 0; i < canvasHeight; i += rowInc) 
       seedGen.push(new Cell(0, i, false));
 
-    seedGen[5].mAlive = true;
+    [1, 2, 3].map(function() {
+      var randomIndex = Math.floor(Math.random() * seedGen.length - 1) + 1;
+      seedGen[randomIndex].mAlive = true;
+      return 0;
+    });
 
     world.seed(seedGen);
   })();
